@@ -8,18 +8,18 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 export default {
-	async fetch(request,env) {
+	async fetch(request, env) {
 		const url = new URL(request.url);
-		let rx;
-		if(url.pathname == "/diccionario"){;
-			const {saveDicc} = await import("./paileria");
+		if (url.pathname == "/diccionario") {
+			const { saveDicc } = await import("./paileria");
 			return saveDicc(request, env);
 		}
 		if (request.method == 'POST') {
-			try{
+			try {
 				let json = await env.codigos_paileria.get("data", { type: "json" });
-				let keys = Object.values(json).join("|");
+				let keys = Object.values(json).join("\\b|\\b");
 				//console.log(keys);
+				let rx;
 				rx = new RegExp(`(?<=^\\s{3})(${keys})`, 'gim');
 				//console.log(rx);
 				let body = await request.text();
@@ -29,13 +29,11 @@ export default {
 					matches.push(match[0]);
 				}
 				//regresamos una nueva linea por cada match
-				return new Response(matches.join('\n'), { headers: { 'Content-Type': 'text/plain' },});
-
-
-			}catch(e){
+				return new Response(matches.join('\n'), { headers: { 'Content-Type': 'text/plain' } });
+			} catch (e) {
 				return new Response(`Error: ${e.message}`, { status: 500 });
 			}
 		}
-		return new Response('Only POST requests are accepted', { status: 405 });
+		return new Response('Solamente solicitures POST son permitidas.', { status: 405 });
 	},
 };
