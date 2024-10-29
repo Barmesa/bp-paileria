@@ -1,9 +1,8 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "bp-paileria"
 main = "src/index.js"
-compatibility_date = "2024-10-18"
+compatibility_date = "2024-10-28"
 compatibility_flags = ["nodejs_compat"]
-
 # Workers Logs
 # Docs: https://developers.cloudflare.com/workers/observability/logs/workers-logs/
 # Configuration: https://developers.cloudflare.com/workers/observability/logs/workers-logs/#enable-workers-logs
@@ -14,8 +13,8 @@ enabled = true
 # If you are running back-end logic in a Worker, running it closer to your back-end infrastructure
 # rather than the end user may result in better performance.
 # Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
-# [placement]
-# mode = "smart"
+[placement]
+mode = "smart"
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Docs:
@@ -77,6 +76,11 @@ enabled = true
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
 # id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+[[kv_namespaces]]
+binding = "codigos_paileria"
+id = "e10b8363d1fd43a6a935bee00924a002"
+preview_id = "dfd52c76d86f4946b926b54c97470c36"
 
 # Bind an mTLS certificate. Use to present a client certificate when communicating with another service.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#mtls-certificates
