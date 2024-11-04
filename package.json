@@ -11,7 +11,7 @@
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.5.22",
     "vitest": "^2.1.4",
-    "wrangler": "^3.83.0"
+    "wrangler": "^3.84.1"
   },
   "dependencies": {
     "papaparse": "^5.4.1"
