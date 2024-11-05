@@ -18,7 +18,7 @@ if "%~1"=="" (
 )
 
 :: URL del Worker de Cloudflare
-set "url=https://bp-paileria.barmesa.workers.dev"
+set "url=http://127.0.0.1:8787"
 
 :: Hacemos el request POST con curl y enviamos el archivo
 :: pon -v al final para ver el proceso

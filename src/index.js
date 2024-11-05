@@ -20,13 +20,33 @@ export default {
 				let keys = Object.values(json).join("\\b|\\b");
 				//console.log(keys);
 				let rx;
+				let rxFps;
+				let fps;
+				let fpsName
 				rx = new RegExp(`(?<=^\\s{3})(${keys})`, 'gim');
+				rxFps = new RegExp("Numero\\sOP\\s:.*01001.*Descripcion\\s\\s\\:\\sFPS.*", 'gim')
+				fps = new RegExp("FPS.*");
 				//console.log(rx);
 				let body = await request.text();
 
 				const matches = [];
+				let isFps = rxFps.test(body);
 				for (const match of body.matchAll(rx)) {
 					matches.push(match[0]);
+				}
+
+				if (isFps == true){
+					fpsName = body.match(fps);
+					return new Response(
+						`La orden es por el siguiente equipo\n
+						\n
+						${fpsName}
+						\n
+						\n
+						Asegurate de agregar los puentes para motor y patas housing\
+						\n
+						\n
+						\n`+matches.join('\n'), { headers: { 'Content-Type': 'text/plain' } })
 				}
 				//regresamos una nueva linea por cada match
 				return new Response(matches.join('\n'), { headers: { 'Content-Type': 'text/plain' } });
